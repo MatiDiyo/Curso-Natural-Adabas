@@ -1,0 +1,81 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #APELLIDO #CODIGO-MONEDA-ACTUAL #CODIGO-MONEDA-NUEVO #ESTADO-CIVIL
+*     #ID-EMPLEADO #NOMBRE #SALARIO-ANUAL-ACTUAL #SALARIO-ANUAL-NUEVO #SEXO
+DEFINE DATA PARAMETER
+1 #APELLIDO (A020)
+1 #CODIGO-MONEDA-ACTUAL (A003)
+1 #CODIGO-MONEDA-NUEVO (A003)
+1 #ESTADO-CIVIL (A001)
+1 #ID-EMPLEADO (A008)
+1 #NOMBRE (A020)
+1 #SALARIO-ANUAL-ACTUAL (P09.0)
+1 #SALARIO-ANUAL-NUEVO (P09.0)
+1 #SEXO (A001)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+/
+ 026T 'MODIFICACIÓN EMPLEADO '
+/
+/
+/
+ 023T 'ID EMPLEADO:'
+ 036T #ID-EMPLEADO /*.01U008 A008 .
+      (AD=ODT )
+/
+/
+/
+ 004T 'NOMBRE...............:'
+ 027T #NOMBRE /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T 'APELLIDO.............:'
+ 027T #APELLIDO /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T 'ESTADO CIVIL.........:'
+ 027T #ESTADO-CIVIL /*.99U001 A001 .
+      (AD=MDT )
+/
+ 004T 'SEXO.................:'
+ 027T #SEXO /*.99U001 A001 .
+      (AD=MDT )
+/
+ 004T 'CÓDIGO MONEDA ACTUAL.:'
+ 027T #CODIGO-MONEDA-ACTUAL /*.99U003 A003 .
+      (AD=MDT )
+/
+ 004T 'SALARIO ACTUAL.......:'
+ 027T #SALARIO-ANUAL-ACTUAL /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 004T 'CODIGO MONEDA NUEVO..:'
+ 027T #CODIGO-MONEDA-NUEVO /*.99U003 A003 .
+      (AD=MDT )
+/
+ 004T 'SALARIO ANUAL NUEVO..:'
+ 027T #SALARIO-ANUAL-NUEVO /*.99U009 P09.0.
+      (AD=MDT )
+/
+/
+/
+/
+/
+/
+/
+ 004T 'PF3-SALIR     '
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

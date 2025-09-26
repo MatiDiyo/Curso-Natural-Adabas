@@ -1,0 +1,108 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+DEFINE DATA LOCAL
+  1 VISTA-EMP VIEW OF EMPLEADOS
+    2 ID-EMPLEADO                 (A08)          /* DESCRIPTOR
+    2 NOMBRE-COMPLETO
+      3 NOMBRE                    (A20)
+      3 APELLIDO                  (A20)          /* DESCRIPTOR
+*
+    2 ESTADO-CIVIL                (A01)
+    /* M=MARRIED  (CASADO/A)
+    /* S=SINGLE   (SOLTERO/A)
+    /* D=DIVORCED (DIVORCIADO/A)
+    /* W=WIDOWED  (VIUDO/A)
+*
+    2 SEXO                        (A01)
+    /* M=MALE     (MASCULINO)
+    /* F=FEMALE   (FEMENINO)
+*
+    2 INGRESO-ANUAL
+      3 CODIGO-MONEDA(1:10)
+      3 SALARIO-ANUAL(1:10)
+*
+  1 #APELLIDO (A020)
+  1 #CODIGO-MONEDA-ACTUAL (A003/00001:00010)
+  1 #ESTADO-CIVIL (A001)
+  1 #ID-EMPLEADO (A008)
+  1 #NOMBRE (A020)
+  1 #SALARIO-ANUAL-ACTUAL (P09.0/00001:00010)
+  1 #SEXO (A001)
+  1 #I (N02)
+  1 #J (N02)
+*    
+END-DEFINE
+*  
+/*-------------------- MAIN -----------------------------------------*/
+*
+SET KEY ALL
+REPEAT
+  INPUT 'INGRESE ID EMPLEADO A CONSULTAR: ' #ID-EMPLEADO
+*
+  DECIDE ON FIRST VALUE OF *PF-KEY
+    VALUE 'ENTR'
+      IF #ID-EMPLEADO NE MASK(99999999)
+        REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
+      END-IF
+      PERFORM BUSCAR-EMPLEADO
+      INPUT USING MAP 'EMP-CONM'
+*      
+      DECIDE ON FIRST VALUE OF *PF-KEY
+        VALUE 'PF3'
+          ESCAPE BOTTOM
+        NONE VALUE
+          IGNORE
+      END-DECIDE
+*
+    VALUE 'PF3'
+      ESCAPE BOTTOM
+*
+    NONE VALUE      
+      REINPUT 'OPCIÓN INCORRECTA'
+  END-DECIDE
+*
+END-REPEAT
+*
+FETCH 'MEN-PRIP'
+*
+/*-------------------- SUBRUTINAS -----------------------------------*/
+*
+*********************************************
+* SUBRUTINA BUSCAR-EMPLEADO
+********************************************
+DEFINE SUBROUTINE BUSCAR-EMPLEADO                /* EX: PROCESO
+*
+F1. FIND VISTA-EMP WITH VISTA-EMP.ID-EMPLEADO = #ID-EMPLEADO
+  IF NO RECORDS FOUND
+    REINPUT 'ID EMPLEADO NO EXISTE.'
+  END-NOREC
+*
+  PERFORM CARGAR-ARREGLO
+*
+  MOVE VISTA-EMP.NOMBRE                TO #NOMBRE
+  MOVE VISTA-EMP.APELLIDO              TO #APELLIDO
+  MOVE VISTA-EMP.ESTADO-CIVIL          TO #ESTADO-CIVIL
+  MOVE VISTA-EMP.SEXO                  TO #SEXO
+*    
+  END-FIND
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA CARGAR-ARREGLO
+*********************************************
+DEFINE SUBROUTINE CARGAR-ARREGLO                 /* EX: ARRAY
+  MOVE 1  TO #J
+*
+  FOR #I = 10 TO 1 STEP -1
+    IF (CODIGO-MONEDA(#I) NE ' ' OR SALARIO-ANUAL(#I) NE 0)
+      MOVE CODIGO-MONEDA(#I) TO #CODIGO-MONEDA-ACTUAL(#J)
+      MOVE SALARIO-ANUAL(#I) TO #SALARIO-ANUAL-ACTUAL(#J)
+      ADD 1                  TO #J
+    END-IF 
+  END-FOR
+*
+END-SUBROUTINE
+*
+END

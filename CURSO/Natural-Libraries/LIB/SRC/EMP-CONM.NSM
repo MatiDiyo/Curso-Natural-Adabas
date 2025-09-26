@@ -1,0 +1,111 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #APELLIDO #CODIGO-MONEDA-ACTUAL(*) #ESTADO-CIVIL #ID-EMPLEADO #NOMBRE
+*     #SALARIO-ANUAL-ACTUAL(*) #SEXO
+DEFINE DATA PARAMETER
+1 #APELLIDO (A020)
+1 #CODIGO-MONEDA-ACTUAL (A003/00001:00010)
+1 #ESTADO-CIVIL (A001)
+1 #ID-EMPLEADO (A008)
+1 #NOMBRE (A020)
+1 #SALARIO-ANUAL-ACTUAL (P09.0/00001:00010)
+1 #SEXO (A001)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+ 024T 'CONSULTA EMPLEADO   '
+/
+/
+/
+ 023T 'ID EMPLEADO:'
+ 036T #ID-EMPLEADO /*.01U008 A008 .
+      (AD=ODT )
+/
+/
+/
+ 004T 'NOMBRE...............:'
+ 027T #NOMBRE /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T 'APELLIDO.............:'
+ 027T #APELLIDO /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T 'ESTADO CIVIL.........:'
+ 027T #ESTADO-CIVIL /*.99U001 A001 .
+      (AD=MDT )
+/
+ 004T 'SEXO.................:'
+ 027T #SEXO /*.99U001 A001 .
+      (AD=MDT )
+/
+ 004T 'CÓDIGO MONEDA ACTUAL.:'
+ 027T #CODIGO-MONEDA-ACTUAL (1) /*.99U003 A003 .
+      (AD=MDT )
+   /**A1000100000100001000010000100001100010001001000001000HV
+ 034T 'SALARIO ACTUAL.......:'
+ 057T #SALARIO-ANUAL-ACTUAL (1) /*.99U009 P09.0.
+      (AD=MDT )
+   /**A1000100000100001000010000100001100010001001000001000HV
+/
+ 027T #CODIGO-MONEDA-ACTUAL (2) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (2) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (3) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (3) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (4) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (4) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (5) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (5) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (6) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (6) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (7) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (7) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (8) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (8) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (9) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (9) /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 027T #CODIGO-MONEDA-ACTUAL (10) /*.99U003 A003 .
+      (AD=MDT )
+ 057T #SALARIO-ANUAL-ACTUAL (10) /*.99U009 P09.0.
+      (AD=MDT )
+/
+/
+ 004T 'PF3-SALIR     '
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

@@ -1,0 +1,70 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+DEFINE DATA LOCAL
+  1 VISTA-MONEDA VIEW OF MONEDAS
+    2 COD-MONEDA
+    2 DESC
+*
+  1 #COD-MONEDA (A03)
+  1 #DESC       (A20)
+END-DEFINE
+*
+DEFINE WINDOW AVISO
+  SIZE 7  * 50
+  BASE 10 / 30 
+  FRAMED
+*
+/*-------------------- MAIN -----------------------------------------*/
+SET KEY ALL
+REPEAT
+  INPUT USING MAP 'MON-ALTM'
+  DECIDE ON FIRST VALUE *PF-KEY
+    VALUE 'ENTR'
+      IF #COD-MONEDA EQ ' '
+        REINPUT 'DEBE INGRESAR UN CODIGO DE MONEDA'
+      END-IF
+*
+      IF #DESC EQ ' '
+        REINPUT 'DEBE INGRESAR UNA DESCRIPCION'
+      END-IF
+      PERFORM ALTA-MONEDA
+      RESET #COD-MONEDA #DESC
+*      
+    VALUE 'PF3'
+      ESCAPE BOTTOM
+*      
+    NONE VALUE
+      IGNORE
+  END-DECIDE
+END-REPEAT
+*
+FETCH 'MEN-PRIP'
+/*-------------------- SUBRUTINAS -----------------------------------*/
+*********************************************
+* SUBRUTINA ALTA-MONEDA
+********************************************
+DEFINE SUBROUTINE ALTA-MONEDA                
+*
+  FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
+*
+    IF NO RECORD FOUND
+      MOVE #COD-MONEDA TO VISTA-MONEDA.COD-MONEDA
+      MOVE #DESC       TO VISTA-MONEDA.DESC
+      STORE VISTA-MONEDA
+      END TRANSACTION
+      SET WINDOW 'AVISO'
+      INPUT 'EL REGISTRO HA SIDO AGREGADO'
+      SET WINDOW OFF
+      ESCAPE BOTTOM
+    END-NOREC
+*
+    SET WINDOW 'AVISO'
+    INPUT 'EL REGISTRO YA EXISTE'
+    SET WINDOW OFF
+*
+  END-FIND
+END-SUBROUTINE
+*
+END  

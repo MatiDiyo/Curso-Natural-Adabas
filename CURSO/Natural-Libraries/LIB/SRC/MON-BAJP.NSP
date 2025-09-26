@@ -1,0 +1,85 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+DEFINE DATA LOCAL
+  1 VISTA-MONEDA VIEW OF MONEDAS
+    2 COD-MONEDA
+    2 DESC
+*
+  1 #COD-MONEDA (A03)
+  1 #ISN        (P10)
+  1 #CONF       (A01)
+END-DEFINE
+*
+DEFINE WINDOW AVISO
+  SIZE 7  * 50
+  BASE 10 / 30 
+  FRAMED
+*
+/*-------------------- MAIN -----------------------------------------*/
+SET KEY ALL
+REPEAT
+  INPUT USING MAP 'MON-BAJM'
+  DECIDE ON FIRST VALUE *PF-KEY
+    VALUE 'ENTR'
+      PERFORM INGRESAR-CODIGO-MONEDA
+      PERFORM BUSCAR-MONEDA
+*
+      DECIDE ON FIRST VALUE #CONF
+         VALUE 'S'
+           GE. GET VISTA-MONEDA #ISN
+           DELETE (GE.)
+           END TRANSACTION
+           RESET   #COD-MONEDA #CONF
+*
+         VALUE 'N'
+          INPUT 'SE CANCELÓ LA ELIMINACIÓN DEL REGISTRO'
+          RESET #COD-MONEDA #CONF
+*
+         NONE VALUE
+          REINPUT 'INGRESE UNA OPCIÓN VÁLIDA'
+      END-DECIDE
+    VALUE 'PF3'
+      ESCAPE BOTTOM
+*      
+    NONE VALUE
+      IGNORE
+  END-DECIDE
+END-REPEAT
+*
+FETCH 'MEN-PRIP'
+/*-------------------- SUBRUTINAS -----------------------------------*/
+*********************************************
+* SUBRUTINA INGRESAR-CODIGO-MONEDA
+*********************************************
+DEFINE SUBROUTINE INGRESAR-CODIGO-MONEDA
+  IF #COD-MONEDA EQ ' '
+    REINPUT 'DEBE INGRESAR UN CODIGO DE MONEDA'
+  END-IF
+END-SUBROUTINE
+*********************************************
+* SUBRUTINA BUSCAR-MONEDA
+*********************************************
+DEFINE SUBROUTINE BUSCAR-MONEDA 
+*
+F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
+*
+  IF NO RECORD FOUND
+    REINPUT 'EL REGISTRO NO EXISTE - INGRESE CODIGO DE MONEDA'
+  END-NOREC
+*
+  #ISN := *ISN(F1.)
+*
+  SET WINDOW 'AVISO'
+  INPUT 'CÓDIGO DE MONEDA: ' VISTA-MONEDA.COD-MONEDA (AD=O) /
+        'DESCRIPCIÓN.....: ' VISTA-MONEDA.DESC       (AD=O) /
+        '¿DESEA ELIMINAR ESTE REGISTRO? (S/N): ' #CONF
+  SET WINDOW OFF
+*
+END-FIND
+*
+END-SUBROUTINE
+*
+END  
+

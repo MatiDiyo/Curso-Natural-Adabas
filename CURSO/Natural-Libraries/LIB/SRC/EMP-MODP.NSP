@@ -1,0 +1,208 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+DEFINE DATA LOCAL
+  1 VISTA-EMP VIEW OF EMPLEADOS
+    2 ID-EMPLEADO                 (A08)          /* DESCRIPTOR
+    2 NOMBRE-COMPLETO
+      3 NOMBRE                    (A20)
+      3 APELLIDO                  (A20)          /* DESCRIPTOR
+      3 NOMBRE-SECUNDARIO         (A20)
+*
+    2 ESTADO-CIVIL                (A01)
+    /* M=MARRIED  (CASADO/A)
+    /* S=SINGLE   (SOLTERO/A)
+    /* D=DIVORCED (DIVORCIADO/A)
+    /* W=WIDOWED  (VIUDO/A)
+*
+    2 SEXO                        (A01)
+    /* M=MALE     (MASCULINO)
+    /* F=FEMALE   (FEMENINO)
+*
+    2 INGRESO-ANUAL
+      3 CODIGO-MONEDA(1:20)
+      3 SALARIO-ANUAL(1:20)
+      3 BONUS        (1:20, 1:20)
+*
+/* VARIABLES
+  1 #VARIABLES
+    2 #CONF                       (A01)
+    2 #CONF-ACT                   (L)
+    2 #SALIR-PROGRAMA             (L)
+    2 #I                          (N02)
+    2 #ULT-IND                    (N02)
+    2 #OPCION                     (N01.0)
+*
+  /* ÚLTIMA OCURRENCIA
+    2 #CODIGO-MONEDA              (A03)
+    2 #SALARIO-ANUAL              (P09)
+    2 #BONUS                      (P09)
+*   
+  1 #APELLIDO (A020)
+  1 #CODIGO-MONEDA-ACTUAL (A003)
+  1 #CODIGO-MONEDA-NUEVO (A003)
+  1 #ESTADO-CIVIL (A001)
+  1 #ID-EMPLEADO (A008)
+  1 #NOMBRE (A020)
+  1 #SALARIO-ANUAL-ACTUAL (P09.0)
+  1 #SALARIO-ANUAL-NUEVO (P09.0)
+  1 #SEXO (A001)       
+*    
+END-DEFINE
+*
+DEFINE WINDOW AVISO
+  SIZE 7  * 50
+  BASE 10 / 30 
+  FRAMED
+*  
+/*-------------------- MAIN -----------------------------------------*/
+*
+SET KEY ALL
+REPEAT
+  INPUT 'INGRESE ID EMPLEADO A MODIFICAR: ' #ID-EMPLEADO
+*
+  DECIDE ON FIRST VALUE OF *PF-KEY
+    VALUE 'ENTR'
+      IF #ID-EMPLEADO NE MASK(99999999)
+        REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
+      END-IF
+      PERFORM BUSCAR-EMPLEADO
+      INPUT USING MAP 'EMP-MODM'
+*      
+      DECIDE ON FIRST VALUE OF *PF-KEY
+        VALUE 'PF3'
+          ESCAPE BOTTOM
+        NONE VALUE
+          IGNORE
+      END-DECIDE
+*
+    VALUE 'PF3'
+      ESCAPE BOTTOM
+*
+    NONE VALUE      
+      REINPUT 'OPCIÓN INCORRECTA'
+  END-DECIDE
+*
+END-REPEAT
+*
+FETCH 'MEN-PRIP'
+*
+/*-------------------- SUBRUTINAS -----------------------------------*/
+*
+*********************************************
+* SUBRUTINA INGRESAR-ID-EMPLEADO
+*********************************************
+DEFINE SUBROUTINE INGRESAR-ID-EMPLEADO           /* EX: VALIDAR
+  INPUT 'INGRESE EMPLEADO: ' #ID-EMPLEADO
+*
+  IF #ID-EMPLEADO NE MASK(99999999)
+    REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
+  END-IF
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA BUSCAR-EMPLEADO
+*********************************************
+DEFINE SUBROUTINE BUSCAR-EMPLEADO                /* EX: PROCESO
+*
+F1. FIND VISTA-EMP WITH VISTA-EMP.ID-EMPLEADO = #ID-EMPLEADO
+  IF NO RECORDS FOUND
+    SET WINDOW 'AVISO'
+    INPUT 'ID EMPLEADO ' #ID-EMPLEADO(AD=O) ' NO EXISTE.'
+    SET WINDOW OFF
+    ESCAPE BOTTOM
+  END-NOREC
+*
+  PERFORM BUSCAR-ULTIMO-INDICE-ARREGLO
+*
+  MOVE VISTA-EMP.APELLIDO                TO #APELLIDO
+  MOVE VISTA-EMP.ESTADO-CIVIL            TO #ESTADO-CIVIL
+  MOVE VISTA-EMP.SEXO                    TO #SEXO
+  MOVE VISTA-EMP.CODIGO-MONEDA(#ULT-IND) TO #CODIGO-MONEDA
+  MOVE VISTA-EMP.SALARIO-ANUAL(#ULT-IND) TO #SALARIO-ANUAL
+*
+  PERFORM MOSTRAR-PANTALLA-EMPLEADO
+  PERFORM CONFIRMAR-ACT-EMPLEADO
+*
+  IF #CONF-ACT EQ TRUE
+    UPDATE (F1.)
+    END TRANSACTION
+  END-IF
+*    
+  END-FIND
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA BUSCAR-ULTIMO-INDICE-ARREGLO
+*********************************************
+DEFINE SUBROUTINE BUSCAR-ULTIMO-INDICE-ARREGLO   /* EX: ARRAY
+  FOR #I = 1 TO 20
+    IF (CODIGO-MONEDA(#I) EQ ' ' OR SALARIO-ANUAL(#I) EQ 0)
+      COMPUTE #ULT-IND = #I - 1
+      ESCAPE BOTTOM
+    END-IF
+  END-FOR
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA MOSTRAR-PANTALLA-EMPLEADO
+*********************************************
+DEFINE SUBROUTINE MOSTRAR-PANTALLA-EMPLEADO
+  INPUT 
+    'ID EMPLEADO...........:' #ID-EMPLEADO         (AD=O) /
+    'APELLIDO..............:' #APELLIDO            (AD=M) /
+    'ESTADO CIVIL..........:' #ESTADO-CIVIL        (AD=M) /
+    'SEXO..................:' #SEXO                (AD=M) /
+    'ÚLTIMO ÍNDICE.........:' #ULT-IND             (AD=O) /
+    'ÚLTIMO CÓDIGO MONEDA..:' #CODIGO-MONEDA       (AD=M) /
+    'ÚLTIMO SALARIO ANUAL..:' #SALARIO-ANUAL       (AD=M) /
+    'NUEVO CÓDIGO MONEDA...:' #CODIGO-MONEDA-NUEVO (AD=M) /
+    'NUEVO SALARIO ANUAL...:' #SALARIO-ANUAL-NUEVO (AD=M) /
+*
+  IF NOT (#ESTADO-CIVIL = 'M' OR = 'S' OR = 'D' OR = 'W')
+    REINPUT 'EL ESTADO CIVIL NO ES VÁLIDO'
+  END-IF
+*
+  IF NOT (#SEXO = 'M' OR = 'F')
+    REINPUT 'EL SEXO NO ES VÁLIDO'
+  END-IF
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA CONFIRMAR-ACT-EMPLEADO
+*********************************************
+DEFINE SUBROUTINE CONFIRMAR-ACT-EMPLEADO         /* EX: CONFIRMAR
+*  INPUT NO ERASE
+*    / 30T '//////////////////////////////////////////' 
+*    / 30T '¿DESEA CONFIRMAR LA ACTUALIZACIÓN? (S/N): ' #CONF
+*    / 30T '//////////////////////////////////////////'
+*
+  SET WINDOW 'AVISO'
+  INPUT 
+    / '¿DESEA CONFIRMAR LA ACTUALIZACIÓN? (S/N): ' #CONF
+  SET WINDOW OFF
+*
+  IF #CONF = 'S' OR #CONF = 's'
+     MOVE #APELLIDO            TO VISTA-EMP.APELLIDO
+     MOVE #ESTADO-CIVIL        TO VISTA-EMP.ESTADO-CIVIL
+     MOVE #SEXO                TO VISTA-EMP.SEXO
+     MOVE #CODIGO-MONEDA       TO VISTA-EMP.CODIGO-MONEDA(#ULT-IND)
+     MOVE #SALARIO-ANUAL       TO VISTA-EMP.SALARIO-ANUAL(#ULT-IND)
+     MOVE #CODIGO-MONEDA-NUEVO TO VISTA-EMP.CODIGO-MONEDA(#ULT-IND + 1)
+     MOVE #SALARIO-ANUAL-NUEVO TO VISTA-EMP.SALARIO-ANUAL(#ULT-IND + 1)
+     MOVE TRUE                 TO #CONF-ACT      /* VARIABLE LÓGICA
+  END-IF
+END-SUBROUTINE
+*
+*********************************************
+* SUBRUTINA SALIR-PROGRAMA
+*********************************************
+DEFINE SUBROUTINE SALIR-PROGRAMA
+  INPUT '¿DESEA FINALIZAR LA EJECUCIÓN DEL PROGRAMA? (S/N): ' #CONF
+  IF #CONF = 'S' OR #CONF = 's'
+    MOVE TRUE TO #SALIR-PROGRAMA
+  END-IF
+END-SUBROUTINE
+*
+END
