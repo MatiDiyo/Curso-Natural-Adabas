@@ -3,27 +3,7 @@
 * :CP
 * <Natural Source Header
 DEFINE DATA LOCAL
-  1 #VARIABLES
-    2 #ID-EMPLEADO                (A08)
-    2 #APELLIDO                   (A20)
-    2 #ESTADO-CIVIL               (A01)
-    2 #SEXO                       (A01)
-    2 #CONF                       (A01)
-    2 #CONF-ACT                   (L)
-    2 #SALIR-PROGRAMA             (L)
-    2 #I                          (N02)
-    2 #ULT-IND                    (N02)
-    2 #OPCION                     (N01.0)
-*
-  /* ÚLTIMA OCURRENCIA
-    2 #CODIGO-MONEDA              (A03)
-    2 #SALARIO-ANUAL              (P09)
-    2 #BONUS                      (P09)
-*
-  /* NUEVA OCURRENCIA
-    2 #CODIGO-MONEDA-NUEVO        (A03)
-    2 #SALARIO-ANUAL-NUEVO        (P09)
-    2 #BONUS-NUEVO                (P09)
+  1 #OPCION (N01.0)
 END-DEFINE
 *
 SET KEY ALL
@@ -37,9 +17,9 @@ IF *PF-KEY EQ 'ENTR'
       FETCH 'DEP-MENP' /* MENÚ DEPARTAMENTOS
     VALUE 3
       FETCH 'MON-MENP' /* MENÚ MONEDAS
-    NONE VALUE      
+    NONE VALUE
       REINPUT 'OPCIÓN INCORRECTA'
   END-DECIDE
 END-IF
-*                       
+*
 END

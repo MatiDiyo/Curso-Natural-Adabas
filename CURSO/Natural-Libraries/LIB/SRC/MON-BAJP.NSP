@@ -14,7 +14,7 @@ END-DEFINE
 *
 DEFINE WINDOW AVISO
   SIZE 7  * 50
-  BASE 10 / 30 
+  BASE 10 / 30
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
@@ -42,7 +42,7 @@ REPEAT
       END-DECIDE
     VALUE 'PF3'
       ESCAPE BOTTOM
-*      
+*
     NONE VALUE
       IGNORE
   END-DECIDE
@@ -61,7 +61,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA BUSCAR-MONEDA
 *********************************************
-DEFINE SUBROUTINE BUSCAR-MONEDA 
+DEFINE SUBROUTINE BUSCAR-MONEDA
 *
 F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
 *
@@ -81,5 +81,4 @@ END-FIND
 *
 END-SUBROUTINE
 *
-END  
-
+END

@@ -20,21 +20,21 @@ DEFINE DATA LOCAL
     /* F=FEMALE   (FEMENINO)
 *
     2 INGRESO-ANUAL
-      3 CODIGO-MONEDA(1:10)
-      3 SALARIO-ANUAL(1:10)
+      3 CODIGO-MONEDA             (1:10)
+      3 SALARIO-ANUAL             (1:10)
 *
-  1 #APELLIDO (A020)
-  1 #CODIGO-MONEDA-ACTUAL (A003/00001:00010)
-  1 #ESTADO-CIVIL (A001)
-  1 #ID-EMPLEADO (A008)
-  1 #NOMBRE (A020)
-  1 #SALARIO-ANUAL-ACTUAL (P09.0/00001:00010)
-  1 #SEXO (A001)
-  1 #I (N02)
-  1 #J (N02)
-*    
+  1 #APELLIDO                     (A020)
+  1 #CODIGO-MONEDA-ACTUAL         (A003/00001:00010)
+  1 #ESTADO-CIVIL                 (A001)
+  1 #ID-EMPLEADO                  (A008)
+  1 #NOMBRE                       (A020)
+  1 #SALARIO-ANUAL-ACTUAL         (P09.0/00001:00010)
+  1 #SEXO                         (A001)
+  1 #I                            (N02)
+  1 #J                            (N02)
+*
 END-DEFINE
-*  
+*
 /*-------------------- MAIN -----------------------------------------*/
 *
 SET KEY ALL
@@ -48,7 +48,7 @@ REPEAT
       END-IF
       PERFORM BUSCAR-EMPLEADO
       INPUT USING MAP 'EMP-CONM'
-*      
+*
       DECIDE ON FIRST VALUE OF *PF-KEY
         VALUE 'PF3'
           ESCAPE BOTTOM
@@ -59,7 +59,7 @@ REPEAT
     VALUE 'PF3'
       ESCAPE BOTTOM
 *
-    NONE VALUE      
+    NONE VALUE
       REINPUT 'OPCIÓN INCORRECTA'
   END-DECIDE
 *
@@ -85,7 +85,7 @@ F1. FIND VISTA-EMP WITH VISTA-EMP.ID-EMPLEADO = #ID-EMPLEADO
   MOVE VISTA-EMP.APELLIDO              TO #APELLIDO
   MOVE VISTA-EMP.ESTADO-CIVIL          TO #ESTADO-CIVIL
   MOVE VISTA-EMP.SEXO                  TO #SEXO
-*    
+*
   END-FIND
 END-SUBROUTINE
 *
@@ -96,11 +96,13 @@ DEFINE SUBROUTINE CARGAR-ARREGLO                 /* EX: ARRAY
   MOVE 1  TO #J
 *
   FOR #I = 10 TO 1 STEP -1
-    IF (CODIGO-MONEDA(#I) NE ' ' OR SALARIO-ANUAL(#I) NE 0)
-      MOVE CODIGO-MONEDA(#I) TO #CODIGO-MONEDA-ACTUAL(#J)
-      MOVE SALARIO-ANUAL(#I) TO #SALARIO-ANUAL-ACTUAL(#J)
-      ADD 1                  TO #J
-    END-IF 
+    IF (VISTA-EMP.CODIGO-MONEDA(#I) NE ' ' OR
+        VISTA-EMP.SALARIO-ANUAL(#I) NE 0)
+*
+      MOVE VISTA-EMP.CODIGO-MONEDA(#I) TO #CODIGO-MONEDA-ACTUAL(#J)
+      MOVE VISTA-EMP.SALARIO-ANUAL(#I) TO #SALARIO-ANUAL-ACTUAL(#J)
+      ADD 1                            TO #J
+    END-IF
   END-FOR
 *
 END-SUBROUTINE

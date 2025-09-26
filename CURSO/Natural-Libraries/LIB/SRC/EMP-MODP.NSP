@@ -4,19 +4,19 @@
 * <Natural Source Header
 DEFINE DATA LOCAL
   1 VISTA-EMP VIEW OF EMPLEADOS
-    2 ID-EMPLEADO                 (A08)          /* DESCRIPTOR
+    2 ID-EMPLEADO                        (A08)          /* DESCRIPTOR
     2 NOMBRE-COMPLETO
-      3 NOMBRE                    (A20)
-      3 APELLIDO                  (A20)          /* DESCRIPTOR
-      3 NOMBRE-SECUNDARIO         (A20)
+      3 NOMBRE                           (A20)
+      3 APELLIDO                         (A20)          /* DESCRIPTOR
+      3 NOMBRE-SECUNDARIO                (A20)
 *
-    2 ESTADO-CIVIL                (A01)
+    2 ESTADO-CIVIL                       (A01)
     /* M=MARRIED  (CASADO/A)
     /* S=SINGLE   (SOLTERO/A)
     /* D=DIVORCED (DIVORCIADO/A)
     /* W=WIDOWED  (VIUDO/A)
 *
-    2 SEXO                        (A01)
+    2 SEXO                               (A01)
     /* M=MALE     (MASCULINO)
     /* F=FEMALE   (FEMENINO)
 *
@@ -25,37 +25,35 @@ DEFINE DATA LOCAL
       3 SALARIO-ANUAL(1:20)
       3 BONUS        (1:20, 1:20)
 *
-/* VARIABLES
-  1 #VARIABLES
-    2 #CONF                       (A01)
-    2 #CONF-ACT                   (L)
-    2 #SALIR-PROGRAMA             (L)
-    2 #I                          (N02)
-    2 #ULT-IND                    (N02)
-    2 #OPCION                     (N01.0)
+/* VARIABLES DEL PROGRAMA
+  1 #CONF                                (A01)
+  1 #CONF-ACT                            (L)
+  1 #SALIR-PROGRAMA                      (L)
+  1 #I                                   (N02)
+  1 #ULT-IND                             (N02)
 *
-  /* ÚLTIMA OCURRENCIA
-    2 #CODIGO-MONEDA              (A03)
-    2 #SALARIO-ANUAL              (P09)
-    2 #BONUS                      (P09)
-*   
-  1 #APELLIDO (A020)
-  1 #CODIGO-MONEDA-ACTUAL (A003)
-  1 #CODIGO-MONEDA-NUEVO (A003)
-  1 #ESTADO-CIVIL (A001)
-  1 #ID-EMPLEADO (A008)
-  1 #NOMBRE (A020)
-  1 #SALARIO-ANUAL-ACTUAL (P09.0)
-  1 #SALARIO-ANUAL-NUEVO (P09.0)
-  1 #SEXO (A001)       
-*    
+/* ÚLTIMA OCURRENCIA DE CÓDIGO Y SALARIO
+  1 #CODIGO-MONEDA                       (A03)
+  1 #SALARIO-ANUAL                       (P09)
+*
+/* VARIABLES DEL MAPA
+  1 #APELLIDO                            (A020)
+  1 #CODIGO-MONEDA-ACTUAL                (A003)
+  1 #CODIGO-MONEDA-NUEVO                 (A003)
+  1 #ESTADO-CIVIL                        (A001)
+  1 #ID-EMPLEADO                         (A008)
+  1 #NOMBRE                              (A020)
+  1 #SALARIO-ANUAL-ACTUAL                (P09.0)
+  1 #SALARIO-ANUAL-NUEVO                 (P09.0)
+  1 #SEXO                                (A001)
+*
 END-DEFINE
 *
 DEFINE WINDOW AVISO
   SIZE 7  * 50
-  BASE 10 / 30 
+  BASE 10 / 30
   FRAMED
-*  
+*
 /*-------------------- MAIN -----------------------------------------*/
 *
 SET KEY ALL
@@ -69,7 +67,7 @@ REPEAT
       END-IF
       PERFORM BUSCAR-EMPLEADO
       INPUT USING MAP 'EMP-MODM'
-*      
+*
       DECIDE ON FIRST VALUE OF *PF-KEY
         VALUE 'PF3'
           ESCAPE BOTTOM
@@ -80,7 +78,7 @@ REPEAT
     VALUE 'PF3'
       ESCAPE BOTTOM
 *
-    NONE VALUE      
+    NONE VALUE
       REINPUT 'OPCIÓN INCORRECTA'
   END-DECIDE
 *
@@ -129,7 +127,7 @@ F1. FIND VISTA-EMP WITH VISTA-EMP.ID-EMPLEADO = #ID-EMPLEADO
     UPDATE (F1.)
     END TRANSACTION
   END-IF
-*    
+*
   END-FIND
 END-SUBROUTINE
 *
@@ -138,7 +136,9 @@ END-SUBROUTINE
 *********************************************
 DEFINE SUBROUTINE BUSCAR-ULTIMO-INDICE-ARREGLO   /* EX: ARRAY
   FOR #I = 1 TO 20
-    IF (CODIGO-MONEDA(#I) EQ ' ' OR SALARIO-ANUAL(#I) EQ 0)
+    IF (VISTA-EMP.CODIGO-MONEDA(#I) EQ ' ' OR
+        VISTA-EMP.SALARIO-ANUAL(#I) EQ 0)
+*
       COMPUTE #ULT-IND = #I - 1
       ESCAPE BOTTOM
     END-IF
@@ -149,7 +149,7 @@ END-SUBROUTINE
 * SUBRUTINA MOSTRAR-PANTALLA-EMPLEADO
 *********************************************
 DEFINE SUBROUTINE MOSTRAR-PANTALLA-EMPLEADO
-  INPUT 
+  INPUT
     'ID EMPLEADO...........:' #ID-EMPLEADO         (AD=O) /
     'APELLIDO..............:' #APELLIDO            (AD=M) /
     'ESTADO CIVIL..........:' #ESTADO-CIVIL        (AD=M) /
@@ -173,13 +173,8 @@ END-SUBROUTINE
 * SUBRUTINA CONFIRMAR-ACT-EMPLEADO
 *********************************************
 DEFINE SUBROUTINE CONFIRMAR-ACT-EMPLEADO         /* EX: CONFIRMAR
-*  INPUT NO ERASE
-*    / 30T '//////////////////////////////////////////' 
-*    / 30T '¿DESEA CONFIRMAR LA ACTUALIZACIÓN? (S/N): ' #CONF
-*    / 30T '//////////////////////////////////////////'
-*
   SET WINDOW 'AVISO'
-  INPUT 
+  INPUT
     / '¿DESEA CONFIRMAR LA ACTUALIZACIÓN? (S/N): ' #CONF
   SET WINDOW OFF
 *

@@ -13,7 +13,7 @@ END-DEFINE
 *
 DEFINE WINDOW AVISO
   SIZE 7  * 50
-  BASE 10 / 30 
+  BASE 10 / 30
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
@@ -31,10 +31,10 @@ REPEAT
       END-IF
       PERFORM ALTA-MONEDA
       RESET #COD-MONEDA #DESC
-*      
+*
     VALUE 'PF3'
       ESCAPE BOTTOM
-*      
+*
     NONE VALUE
       IGNORE
   END-DECIDE
@@ -45,7 +45,7 @@ FETCH 'MEN-PRIP'
 *********************************************
 * SUBRUTINA ALTA-MONEDA
 ********************************************
-DEFINE SUBROUTINE ALTA-MONEDA                
+DEFINE SUBROUTINE ALTA-MONEDA
 *
   FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
 *
@@ -67,4 +67,4 @@ DEFINE SUBROUTINE ALTA-MONEDA
   END-FIND
 END-SUBROUTINE
 *
-END  
+END
