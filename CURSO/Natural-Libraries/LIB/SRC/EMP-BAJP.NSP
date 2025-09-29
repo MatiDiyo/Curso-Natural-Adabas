@@ -2,5 +2,6 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Baja de <b>Empleados</b>.
 WRITE 'BAJA EMPLEADO'
 END  

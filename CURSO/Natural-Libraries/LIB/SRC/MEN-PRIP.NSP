@@ -2,8 +2,20 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Menú principal de la aplicación.
+/**
+/** <p> Cada empleado pertenece a un departamento y cobra el sueldo
+/** en alguna de las monedas que se encuentran en el archivo
+/** de monedas.</p>
+/**
+/** La aplicación consta de tres submenús:
+/** <ul>
+/** <li> <b>Empleado</b>: Alta, baja, consulta y modificación. </li>
+/** <li> <b>Departamento</b>: Alta, baja, consulta y modificación. </li>
+/** <li> <b>Moneda</b>: Alta, baja, consulta y modificación. </li>
+/** </ul>
 DEFINE DATA LOCAL
-  1 #OPCION (N01.0)
+1 #OPCION (N01.0)
 END-DEFINE
 *
 SET KEY ALL

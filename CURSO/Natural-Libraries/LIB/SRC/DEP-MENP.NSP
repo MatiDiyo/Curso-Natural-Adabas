@@ -2,6 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Menú principal de <b>Departamentos</b>.
 DEFINE DATA LOCAL
   1 #OPCION (N01.0)
 END-DEFINE

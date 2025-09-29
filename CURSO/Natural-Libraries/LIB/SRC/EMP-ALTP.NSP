@@ -2,5 +2,6 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Alta de <b>Empleados</b>.
 WRITE 'ALTA EMPLEADO'
 END  

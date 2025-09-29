@@ -2,6 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Modificación de <b>Empleados</b>.
 DEFINE DATA LOCAL
   1 VISTA-EMP VIEW OF EMPLEADOS
     2 ID-EMPLEADO                        (A08)          /* DESCRIPTOR

@@ -2,6 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Listado total de <b>Monedas</b>.
 DEFINE DATA LOCAL
   1 VISTA-MONEDA VIEW OF MONEDAS
     2 COD-MONEDA

@@ -2,5 +2,6 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Baja de <b>Departamentos</b>.
 WRITE 'BAJA DEPARTAMENTO'
 END  

@@ -2,5 +2,6 @@
 * :Mode S
 * :CP
 * <Natural Source Header
+/** Consulta de <b>Departamentos</b>.
 WRITE 'CONSULTA DEPARTAMENTO'
 END  
