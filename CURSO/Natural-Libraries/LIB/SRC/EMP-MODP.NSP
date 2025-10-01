@@ -85,7 +85,7 @@ REPEAT
 *
 END-REPEAT
 *
-FETCH 'MEN-PRIP'
+FETCH 'EMP-MENP'
 *
 /*-------------------- SUBRUTINAS -----------------------------------*/
 *

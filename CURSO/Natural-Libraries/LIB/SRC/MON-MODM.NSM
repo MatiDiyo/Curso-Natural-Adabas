@@ -1,0 +1,54 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #COD-MONEDA #DESC
+DEFINE DATA PARAMETER
+1 #COD-MONEDA (A003)
+1 #DESC (A020)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+ 027T 'MODIFICACIÓN MONEDA'
+ 065T *PROGRAM /*.01S008 A008 .
+      (AD=ODT )
+/
+/
+/
+ 008T 'CÓDIGO MONEDA:'
+ 023T #COD-MONEDA /*.99U003 A003 .
+      (AD=MDT )
+/
+ 008T 'DESCRIPCIÓN..:'
+ 023T #DESC /*.99U020 A020 .
+      (AD=MDT )
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+ 004T 'PF3-SALIR'
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

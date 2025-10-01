@@ -1,0 +1,113 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #APELLIDO(*) #ID-EMPLEADO(*) #NOMBRE(*)
+DEFINE DATA PARAMETER
+1 #APELLIDO (A020/00001:00010)
+1 #ID-EMPLEADO (A008/00001:00010)
+1 #NOMBRE (A020/00001:00010)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+/
+ 061T *PROGRAM /*.01S010 A008 .
+      (AD=ODT )
+/
+ 004T 'ID-EMPLEADO'
+ 019T 'NOMBRE    '
+ 043T 'APELLIDO      '
+/
+/
+ 004T #ID-EMPLEADO (1) /*.99U008 A008 .
+      (AD=MDT )
+   /**A1000100000100001000010000100001100010001001000001000HV
+ 017T #NOMBRE (1) /*.99U020 A020 .
+      (AD=MDT )
+   /**A1000100000100001000010000100001100010001001000001000HV
+ 042T #APELLIDO (1) /*.99U020 A020 .
+      (AD=MDT )
+   /**A1000100000100001000010000100001100010001001000001000HV
+/
+ 004T #ID-EMPLEADO (2) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (2) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (2) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (3) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (3) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (3) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (4) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (4) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (4) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (5) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (5) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (5) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (6) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (6) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (6) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (7) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (7) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (7) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (8) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (8) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (8) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (9) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (9) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (9) /*.99U020 A020 .
+      (AD=MDT )
+/
+ 004T #ID-EMPLEADO (10) /*.99U008 A008 .
+      (AD=MDT )
+ 017T #NOMBRE (10) /*.99U020 A020 .
+      (AD=MDT )
+ 042T #APELLIDO (10) /*.99U020 A020 .
+      (AD=MDT )
+/
+/
+/
+/
+/
+/
+/
+/
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

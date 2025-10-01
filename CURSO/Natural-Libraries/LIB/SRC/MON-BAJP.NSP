@@ -49,7 +49,7 @@ REPEAT
   END-DECIDE
 END-REPEAT
 *
-FETCH 'MEN-PRIP'
+FETCH 'MON-MENP'
 /*-------------------- SUBRUTINAS -----------------------------------*/
 *********************************************
 * SUBRUTINA INGRESAR-CODIGO-MONEDA

@@ -1,0 +1,92 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+/** Consulta de <b>Empleados</b>.
+DEFINE DATA LOCAL
+  1 VISTA-EMP VIEW OF EMPLEADOS
+    2 ID-EMPLEADO                 (A08)          /* DESCRIPTOR
+    2 NOMBRE-COMPLETO
+      3 NOMBRE                    (A20)
+      3 APELLIDO                  (A20)          /* DESCRIPTOR
+*
+    2 ESTADO-CIVIL                (A01)
+    /* M=MARRIED  (CASADO/A)
+    /* S=SINGLE   (SOLTERO/A)
+    /* D=DIVORCED (DIVORCIADO/A)
+    /* W=WIDOWED  (VIUDO/A)
+*
+    2 SEXO                        (A01)
+    /* M=MALE     (MASCULINO)
+    /* F=FEMALE   (FEMENINO)
+*
+    2 INGRESO-ANUAL
+      3 CODIGO-MONEDA             (1:10)
+      3 SALARIO-ANUAL             (1:10)
+*
+   1 #ID-EMPL (A08)
+
+  1 #APELLIDO (A020/00001:00010)
+  1 #ID-EMPLEADO (A008/00001:00010)
+  1 #NOMBRE (A020/00001:00010)
+*  
+  1 #APELLIDO-V (A020/00001:000100)
+  1 #ID-EMPLEADO-V (A008/00001:000100)
+  1 #NOMBRE-V (A020/00001:000100)
+  
+  1 #I (N03)
+*
+END-DEFINE
+*
+/*-------------------- MAIN -----------------------------------------*/
+*
+SET KEY ALL
+
+  INPUT 'INGRESE ID EMPLEADO A CONSULTAR: ' #ID-EMPL
+*
+  DECIDE ON FIRST VALUE OF *PF-KEY
+    VALUE 'ENTR'
+      IF #ID-EMPL NE MASK(99999999)
+        REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
+      END-IF
+      PERFORM CARGAR-VECTORES
+      
+      INPUT USING MAP 'EMP-MULM'
+*
+      DECIDE ON FIRST VALUE OF *PF-KEY
+        VALUE 'PF3'
+          ESCAPE BOTTOM
+        NONE VALUE
+          IGNORE
+      END-DECIDE
+*
+    VALUE 'PF3'
+      ESCAPE BOTTOM
+*
+    NONE VALUE
+      REINPUT 'OPCIÓN INCORRECTA'
+  END-DECIDE
+*
+FETCH 'EMP-MENP'
+*
+/*-------------------- SUBRUTINAS -----------------------------------*/
+*
+*********************************************
+* SUBRUTINA CARGAR-VECTORES
+********************************************
+DEFINE SUBROUTINE CARGAR-VECTORES                /* EX: PROCESO
+*
+  READ VISTA-EMP BY VISTA-EMP.ID-EMPLEADO = #ID-EMPL
+    ADD 1 TO #I
+    
+    MOVE VISTA-EMP.ID-EMPLEADO           TO #ID-EMPLEADO-V(#I)
+    MOVE VISTA-EMP.NOMBRE                TO #NOMBRE-V(#I)
+    MOVE VISTA-EMP.APELLIDO              TO #APELLIDO-V(#I)
+*
+    IF #I EQ 100
+      ESCAPE BOTTOM
+    END-IF
+  END-READ
+END-SUBROUTINE
+*
+END
