@@ -16,36 +16,40 @@ FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
- 004T 'MENÚ MONEDAS            '
+ 071T *PROGRAM /*.01S008 A008 .
+      (AD=ODT )
 /
 /
- 004T '1-ALTA MONEDA      '
-/
- 004T '2-BAJA MONEDA       '
-/
- 004T '3-MODIFICACIÓN MONEDA      '
-/
- 004T '4-CONSULTA MONEDA      '
-/
- 004T '5-LISTADO MONEDAS       '
+ 030T 'MENÚ MONEDAS'
 /
 /
- 038T #OPCION /*.99U001 N01.0.
+/
+ 019T '1-ALTA MONEDA'
+/
+/
+ 019T '2-BAJA MONEDA'
+/
+/
+ 019T '3-MODIFICACIÓN MONEDA'
+/
+/
+ 019T '4-CONSULTA MONEDA'
+/
+/
+ 019T '5-LISTADO MONEDAS'
+/
+/
+/
+ 019T 'SELECCIONE UNA OPCIÓN:'
+ 042T #OPCION /*.99U001 N01.0.
       (AD=MDT )
 /
 /
 /
 /
 /
-/
-/
-/
-/
-/
-/
-/
- 004T 'ENTER-VAL'
-/
+ 002T 'ENTER-VAL'
+ 012T 'PF3-SALIR'
 /
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************

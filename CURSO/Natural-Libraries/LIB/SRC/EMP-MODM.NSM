@@ -25,56 +25,59 @@ FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
+ 071T *PROGRAM /*.01S008 A008 .
+      (AD=ODT )
 /
- 026T 'MODIFICACIÓN EMPLEADO '
+/
+ 026T 'MODIFICACIÓN EMPLEADO'
 /
 /
 /
- 023T 'ID EMPLEADO:'
- 036T #ID-EMPLEADO /*.01U008 A008 .
+ 025T 'ID EMPLEADO:'
+ 038T #ID-EMPLEADO /*.01U008 A008 .
       (AD=ODT )
 /
 /
 /
- 004T 'NOMBRE...............:'
- 027T #NOMBRE /*.99U020 A020 .
+/
+ 013T 'NOMBRE...............:'
+ 036T #NOMBRE /*.99U020 A020 .
       (AD=MDT )
 /
- 004T 'APELLIDO.............:'
- 027T #APELLIDO /*.99U020 A020 .
+ 013T 'APELLIDO.............:'
+ 036T #APELLIDO /*.99U020 A020 .
       (AD=MDT )
 /
- 004T 'ESTADO CIVIL.........:'
- 027T #ESTADO-CIVIL /*.99U001 A001 .
+ 013T 'ESTADO CIVIL.........:'
+ 036T #ESTADO-CIVIL /*.99U001 A001 .
       (AD=MDT )
 /
- 004T 'SEXO.................:'
- 027T #SEXO /*.99U001 A001 .
+ 013T 'SEXO.................:'
+ 036T #SEXO /*.99U001 A001 .
       (AD=MDT )
 /
- 004T 'CÓDIGO MONEDA ACTUAL.:'
- 027T #CODIGO-MONEDA-ACTUAL /*.99U003 A003 .
+ 013T 'CÓDIGO MONEDA ACTUAL.:'
+ 036T #CODIGO-MONEDA-ACTUAL /*.99U003 A003 .
       (AD=MDT )
 /
- 004T 'SALARIO ACTUAL.......:'
- 027T #SALARIO-ANUAL-ACTUAL /*.99U009 P09.0.
+ 013T 'SALARIO ACTUAL.......:'
+ 036T #SALARIO-ANUAL-ACTUAL /*.99U009 P09.0.
       (AD=MDT )
 /
- 004T 'CODIGO MONEDA NUEVO..:'
- 027T #CODIGO-MONEDA-NUEVO /*.99U003 A003 .
+ 013T 'CODIGO MONEDA NUEVO..:'
+ 036T #CODIGO-MONEDA-NUEVO /*.99U003 A003 .
       (AD=MDT )
 /
- 004T 'SALARIO ANUAL NUEVO..:'
- 027T #SALARIO-ANUAL-NUEVO /*.99U009 P09.0.
+ 013T 'SALARIO ANUAL NUEVO..:'
+ 036T #SALARIO-ANUAL-NUEVO /*.99U009 P09.0.
       (AD=MDT )
 /
 /
 /
 /
 /
-/
-/
- 004T 'PF3-SALIR     '
+ 002T 'ENTER-VAL'
+ 012T 'PF3-SALIR'
 /
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************

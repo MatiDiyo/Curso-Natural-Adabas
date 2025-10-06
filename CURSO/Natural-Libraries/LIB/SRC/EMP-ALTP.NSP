@@ -4,4 +4,5 @@
 * <Natural Source Header
 /** Alta de <b>Empleados</b>.
 WRITE 'ALTA EMPLEADO'
+FETCH 'EMP-MENP'
 END  

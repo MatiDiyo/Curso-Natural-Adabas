@@ -4,4 +4,5 @@
 * <Natural Source Header
 /** Consulta de <b>Monedas</b>.
 WRITE 'CONSULTA MONEDA'
+FETCH 'MON-MENP'
 END  

@@ -16,20 +16,29 @@ FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
- 004T 'MENÚ EMPLEADOS          '
+ 071T *PROGRAM /*.01S008 A008 .
+      (AD=ODT )
 /
 /
- 004T '1-ALTA EMPLEADO '
-/
- 004T '2-BAJA EMPLEDO      '
-/
- 004T '3-MODIFICACIÓN EMPLEADO'
-/
- 004T '4-CONSULTA EMPLEADO    '
+ 030T 'MENÚ EMPLEADOS'
 /
 /
 /
- 038T #OPCION /*.99U001 N01.0.
+ 017T '1-ALTA EMPLEADO '
+/
+/
+ 017T '2-BAJA EMPLEDO'
+/
+/
+ 017T '3-MODIFICACIÓN EMPLEADO'
+/
+/
+ 017T '4-CONSULTA EMPLEADO'
+/
+/
+/
+ 017T 'SELECCIONE UNA OPCIÓN:'
+ 040T #OPCION /*.99U001 N01.0.
       (AD=MDT )
 /
 /
@@ -38,13 +47,8 @@ INPUT          (     IP=OFF                                           /*
 /
 /
 /
-/
-/
-/
-/
-/
- 004T 'ENTER-VAL'
-/
+ 002T 'ENTER-VAL'
+ 012T 'PF3-SALIR'
 /
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************

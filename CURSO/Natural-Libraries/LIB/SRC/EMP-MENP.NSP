@@ -17,7 +17,7 @@ REPEAT
         VALUE 1
           FETCH 'EMP-ALTP' /* ALTA EMPLEADO
         VALUE 2
-          FETCH 'DEP-MENP' /* BAJA EMPLEADO
+          FETCH 'EMP-BAJP' /* BAJA EMPLEADO
         VALUE 3
           FETCH 'EMP-MODP' /* MODIFICACIÓN EMPLEADO
         VALUE 4

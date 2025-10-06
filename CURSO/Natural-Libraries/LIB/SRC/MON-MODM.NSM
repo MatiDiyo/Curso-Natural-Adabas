@@ -17,18 +17,20 @@ FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
- 027T 'MODIFICACIÓN MONEDA'
- 065T *PROGRAM /*.01S008 A008 .
+ 071T *PROGRAM /*.01S008 A008 .
       (AD=ODT )
 /
 /
+ 030T 'MODIFICACIÓN MONEDA'
 /
- 008T 'CÓDIGO MONEDA:'
- 023T #COD-MONEDA /*.99U003 A003 .
+/
+/
+ 017T 'CÓDIGO MONEDA:'
+ 032T #COD-MONEDA /*.99U003 A003 .
       (AD=MDT )
 /
- 008T 'DESCRIPCIÓN..:'
- 023T #DESC /*.99U020 A020 .
+ 017T 'DESCRIPCIÓN..:'
+ 032T #DESC /*.99U020 A020 .
       (AD=MDT )
 /
 /
@@ -45,9 +47,8 @@ INPUT          (     IP=OFF                                           /*
 /
 /
 /
-/
-/
- 004T 'PF3-SALIR'
+ 002T 'ENTER-VAL'
+ 012T 'PF3-SALIR'
 /
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************

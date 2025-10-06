@@ -17,7 +17,7 @@ REPEAT
         VALUE 1
           FETCH 'MON-ALTP' /* ALTA MONEDA
         VALUE 2
-          FETCH 'MON-MENP' /* BAJA MONEDA
+          FETCH 'MON-BAJP' /* BAJA MONEDA
         VALUE 3
           FETCH 'MON-MODP' /* MODIFICACIÓN MONEDA
         VALUE 4
