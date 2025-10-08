@@ -1,0 +1,109 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #APELLIDO-M #BONUS-M #CIUDAD-M #COD-MONEDA-M #DOMICILIO-M #ESTADO-CIVIL-M
+*     #FECHA-FIN #FECHA-INICIO-M #ID-EMPLEADO-M #NOMBRE-M #SALARIO-ANUAL-M #SEXO-M
+*     CODIGO-POSTAL-M DEPARTAMENTO-M INICIAL-PAIS-M PROFESION-M
+DEFINE DATA PARAMETER
+1 #APELLIDO-M (A020)
+1 #BONUS-M (P09.0)
+1 #CIUDAD-M (A020)
+1 #COD-MONEDA-M (A003)
+1 #DOMICILIO-M (A020)
+1 #ESTADO-CIVIL-M (A001)
+1 #FECHA-FIN (N08.0)
+1 #FECHA-INICIO-M (N08.0)
+1 #ID-EMPLEADO-M (A008)
+1 #NOMBRE-M (A020)
+1 #SALARIO-ANUAL-M (P09.0)
+1 #SEXO-M (A001)
+1 CODIGO-POSTAL-M (A010)
+1 DEPARTAMENTO-M (A006)
+1 INICIAL-PAIS-M (A003)
+1 PROFESION-M (A025)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+/
+ 029T 'ALTA EMPLEADO'
+/
+/
+/
+/
+ 003T 'ID-EMPLEADO:'
+ 019T #ID-EMPLEADO-M /*.99U008 A008 .
+      (AD=MDT )
+/
+ 003T 'NOMBRE:     '
+ 019T #NOMBRE-M /*.99U020 A020 .
+      (AD=MDT )
+/
+ 003T 'APELLIDO:   '
+ 019T #APELLIDO-M /*.99U020 A020 .
+      (AD=MDT )
+/
+ 003T 'ESTADO CIVIL:'
+ 019T #ESTADO-CIVIL-M /*.99U001 A001 .
+      (AD=MDT )
+/
+ 003T 'SEXO:       '
+ 019T #SEXO-M /*.99U001 A001 .
+      (AD=MDT )
+/
+ 003T 'DOMICILIO:  '
+ 019T #DOMICILIO-M /*.99U020 A020 .
+      (AD=MDT )
+/
+ 003T 'CIUDAD:     '
+ 019T #CIUDAD-M /*.99U020 A020 .
+      (AD=MDT )
+/
+ 003T 'CODIGO POSTAL:'
+ 019T CODIGO-POSTAL-M /*.99U010 A010 .
+      (AD=MDT )
+/
+ 003T 'INICIAL PAIS: '
+ 019T INICIAL-PAIS-M /*.99U003 A003 .
+      (AD=MDT )
+/
+ 003T 'DEPARTAMENTO:'
+ 019T DEPARTAMENTO-M /*.99U006 A006 .
+      (AD=MDT )
+/
+ 003T 'PROFESION:   '
+ 019T PROFESION-M /*.99U025 A025 .
+      (AD=MDT )
+/
+ 003T 'COD MONEDA:  '
+ 019T #COD-MONEDA-M /*.99U003 A003 .
+      (AD=MDT )
+/
+ 003T 'SALARIO ANUAL:'
+ 019T #SALARIO-ANUAL-M /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 003T 'BONUS:        '
+ 019T #BONUS-M /*.99U009 P09.0.
+      (AD=MDT )
+/
+ 003T 'FECHA INICIO: '
+ 019T #FECHA-INICIO-M /*.99U008 N08.0.
+      (AD=MDT )
+/
+ 003T 'FECHA FIN:    '
+ 019T #FECHA-FIN /*.99U008 N08.0.
+      (AD=MDT )
+/
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

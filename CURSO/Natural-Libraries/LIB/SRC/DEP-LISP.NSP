@@ -1,0 +1,21 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+/** Listado total de <b>Departamentos</b>.
+DEFINE DATA LOCAL
+  1 VISTA-DEPT VIEW OF DEPARTAMENTOS
+    2 COD-DEPT
+    2 DESC
+*
+END-DEFINE
+*
+READ VISTA-DEPT BY VISTA-DEPT.COD-DEPT
+  DISPLAY 'DEPT'   VISTA-DEPT.COD-DEPT
+          'DESC'   VISTA-DEPT.DESC
+*
+END-READ
+*
+FETCH 'DEP-MENP'
+*
+END
