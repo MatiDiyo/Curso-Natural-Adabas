@@ -1,0 +1,26 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+/** Carga masiva de <b>Monedas</b>.
+DEFINE DATA LOCAL
+    1 #VISTA-MON
+        2 #COD-DEPT               (A06)
+        2 #DESC                   (A20)
+*
+  1 VISTA-MON VIEW OF MONEDAS
+    2 COD-MONEDA
+    2 DESC
+END-DEFINE
+*
+DEFINE WORK FILE 1 '/home/CSV/MONEDA.CSV'     TYPE 'CSV'
+*
+READ WORK FILE 1 #VISTA-MON
+    MOVE #VISTA-MON.#COD-DEPT  TO VISTA-MON.COD-MONEDA
+    MOVE #VISTA-MON.#DESC      TO VISTA-MON.DESC
+*
+    STORE RECORD IN VISTA-MON
+    END OF TRANSACTION
+*
+END-WORK
+END
