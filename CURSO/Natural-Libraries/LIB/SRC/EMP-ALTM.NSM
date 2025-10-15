@@ -33,37 +33,39 @@ FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
+ 071T *PROGRAM /*.01S008 A008 .
+      (AD=ODT )
 /
  029T 'ALTA EMPLEADO'
 /
 /
 /
 /
- 003T 'ID-EMPLEADO:'
+ 003T 'ID-EMPLEADO..:'
  019T #ID-EMPLEADO-M /*.99U008 A008 .
       (AD=MDT )
 /
- 003T 'NOMBRE:     '
+ 003T 'NOMBRE.......:'
  019T #NOMBRE-M /*.99U020 A020 .
       (AD=MDT )
 /
- 003T 'APELLIDO:   '
+ 003T 'APELLIDO.....:'
  019T #APELLIDO-M /*.99U020 A020 .
       (AD=MDT )
 /
- 003T 'ESTADO CIVIL:'
+ 003T 'ESTADO CIVIL.:'
  019T #ESTADO-CIVIL-M /*.99U001 A001 .
       (AD=MDT )
 /
- 003T 'SEXO:       '
+ 003T 'SEXO.........:'
  019T #SEXO-M /*.99U001 A001 .
       (AD=MDT )
 /
- 003T 'DOMICILIO:  '
+ 003T 'DOMICILIO....:'
  019T #DOMICILIO-M /*.99U020 A020 .
       (AD=MDT )
 /
- 003T 'CIUDAD:     '
+ 003T 'CIUDAD.......:'
  019T #CIUDAD-M /*.99U020 A020 .
       (AD=MDT )
 /
@@ -71,19 +73,19 @@ INPUT          (     IP=OFF                                           /*
  019T #CODIGO-POSTAL-M /*.99U010 A010 .
       (AD=MDT )
 /
- 003T 'INICIAL PAIS: '
+ 003T 'INICIAL PAIS.:'
  019T #INICIAL-PAIS-M /*.99U003 A003 .
       (AD=MDT )
 /
- 003T 'DEPARTAMENTO:'
+ 003T 'DEPARTAMENTO.:'
  019T #DEPARTAMENTO-M /*.99U006 A006 .
       (AD=MDT )
 /
- 003T 'PROFESION:   '
+ 003T 'PROFESION....:'
  019T #PROFESION-M /*.99U025 A025 .
       (AD=MDT )
 /
- 003T 'COD MONEDA:  '
+ 003T 'COD MONEDA...:'
  019T #COD-MONEDA-M /*.99U003 A003 .
       (AD=MDT )
 /
@@ -91,19 +93,22 @@ INPUT          (     IP=OFF                                           /*
  019T #SALARIO-ANUAL-M /*.99U009 P09.0.
       (AD=MDT )
 /
- 003T 'BONUS:        '
+ 003T 'BONUS........:'
  019T #BONUS-M /*.99U009 P09.0.
       (AD=MDT )
 /
- 003T 'FECHA INICIO: '
+ 003T 'FECHA INICIO.:'
  019T #FECHA-INICIO-M /*.99U008 N08.0.
       (AD=MDT )
 /
- 003T 'FECHA FIN:    '
+ 003T 'FECHA FIN....:'
  019T #FECHA-FIN-M /*.99U008 N08.0.
       (AD=MDT )
 /
 /
+ 003T 'VAL-ENTER'
+ 013T 'PF3-SALIR'
+ 023T 'PF10-ALTA'
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************
 END
