@@ -1,0 +1,84 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* MAP2: PROTOTYPE VERSION 820 --- CREATED BY ONE 9.3.1 ---
+* INPUT USING MAP 'XXXXXXXX'
+*     #COD-DEP-M(*) #DESC-M(*) #SEL-M(*)
+DEFINE DATA PARAMETER
+1 #COD-DEP-M (A006/00001:00005)
+1 #DESC-M (A030/00001:00005)
+1 #SEL-M (A001/00001:00005)
+END-DEFINE
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+/
+ 070T *PROGRAM /*.01S009 A008 .
+      (AD=ODT )
+/
+/
+ 030T 'ALTA DEPARTAMENTO'
+/
+/
+/
+/
+ 012T 'SEL'
+ 029T 'COD'
+ 055T 'DESC'
+/
+/
+ 013T #SEL-M (1) /*.99U001 A001 .
+      (AD=MDT )
+   /**A1000050000100001000010000100001100005001001000001000HV
+ 028T #COD-DEP-M (1) /*.01U006 A006 .
+      (AD=ODT )
+   /**A1000050000100001000010000100001100005001001000001000HV
+ 043T #DESC-M (1) /*.01U030 A030 .
+      (AD=ODT )
+   /**A1000050000100001000010000100001100005001001000001000HV
+/
+ 013T #SEL-M (2) /*.99U001 A001 .
+      (AD=MDT )
+ 028T #COD-DEP-M (2) /*.01U006 A006 .
+      (AD=ODT )
+ 043T #DESC-M (2) /*.01U030 A030 .
+      (AD=ODT )
+/
+ 013T #SEL-M (3) /*.99U001 A001 .
+      (AD=MDT )
+ 028T #COD-DEP-M (3) /*.01U006 A006 .
+      (AD=ODT )
+ 043T #DESC-M (3) /*.01U030 A030 .
+      (AD=ODT )
+/
+ 013T #SEL-M (4) /*.99U001 A001 .
+      (AD=MDT )
+ 028T #COD-DEP-M (4) /*.01U006 A006 .
+      (AD=ODT )
+ 043T #DESC-M (4) /*.01U030 A030 .
+      (AD=ODT )
+/
+ 013T #SEL-M (5) /*.99U001 A001 .
+      (AD=MDT )
+ 028T #COD-DEP-M (5) /*.01U006 A006 .
+      (AD=ODT )
+ 043T #DESC-M (5) /*.01U030 A030 .
+      (AD=ODT )
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

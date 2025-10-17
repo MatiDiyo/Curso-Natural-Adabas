@@ -1,0 +1,11 @@
+DEFINE DATA PARAMETER
+/* >Natural Source Header 000000
+/* :Mode S
+/* :CP
+/* <Natural Source Header
+  1 #COD-DEPT-P     (A06) /* ESTE ES PARÁMETRO ENTRADA
+  1 #DESC-P         (A30) /* ESTE ES PARÁMETRO SALIDA
+  1 #COD-RETORNO-P  (N01) /* ESTE ES PARÁMETRO SALIDA
+                          /* 1 - ENCONTRÓ DEPARTAMENTO
+                          /* 2 - NO ENCONTRÓ DEPARTAMENTO
+END-DEFINE
