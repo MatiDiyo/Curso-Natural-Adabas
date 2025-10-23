@@ -18,22 +18,24 @@ DEFINE WINDOW AVISO
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 REPEAT
   INPUT USING MAP 'MON-ALTM'
   DECIDE ON FIRST VALUE *PF-KEY
-    VALUE 'ENTR'
+*
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       IF #COD-MONEDA EQ ' '
         REINPUT 'DEBE INGRESAR UN CODIGO DE MONEDA'
       END-IF
 *
       IF #DESC EQ ' '
-        REINPUT 'DEBE INGRESAR UNA DESCRIPCION'
+        REINPUT 'DEBE INGRESAR UNA DESCRIPCIÓN'
       END-IF
       PERFORM ALTA-MONEDA
       RESET #COD-MONEDA #DESC
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -42,10 +44,13 @@ REPEAT
 END-REPEAT
 *
 FETCH 'MON-MENP'
+*
 /*-------------------- SUBRUTINAS -----------------------------------*/
+*
 *********************************************
 * SUBRUTINA ALTA-MONEDA
-********************************************
+*********************************************
+*
 DEFINE SUBROUTINE ALTA-MONEDA
 *
   FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA

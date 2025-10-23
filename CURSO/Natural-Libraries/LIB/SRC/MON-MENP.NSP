@@ -12,23 +12,23 @@ INPUT USING MAP 'MON-MENM'
 *
 REPEAT
   DECIDE ON FIRST VALUE OF *PF-KEY
-    VALUE 'ENTR'
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       DECIDE ON FIRST VALUE OF #OPCION
         VALUE 1
-          FETCH 'MON-ALTP' /* ALTA MONEDA
+          FETCH 'MON-ALTP'         /* ALTA MONEDA
         VALUE 2
-          FETCH 'MON-BAJP' /* BAJA MONEDA
+          FETCH 'MON-BAJP'         /* BAJA MONEDA
         VALUE 3
-          FETCH 'MON-MODP' /* MODIFICACIÓN MONEDA
+          FETCH 'MON-MODP'         /* MODIFICACIÓN MONEDA
         VALUE 4
-          FETCH 'MON-CONP' /* CONSULTA MONEDA
+          FETCH 'MON-CONP'         /* CONSULTA MONEDA
         VALUE 5
-          FETCH 'MON-LISP' /* LISTADO MONEDA
+          FETCH 'MON-LISP'         /* LISTADO MONEDA
         NONE VALUE
           REINPUT 'OPCIÓN INCORRECTA'
       END-DECIDE
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE

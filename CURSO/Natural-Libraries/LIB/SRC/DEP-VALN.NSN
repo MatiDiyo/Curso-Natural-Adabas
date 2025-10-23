@@ -2,7 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
-/** Subprograma de <b>Departamentos</b>.
+/** Subprograma de validación de <b>Departamentos</b>.
 DEFINE DATA PARAMETER
 *  1 #COD-DEPT-P     (A06) /* ESTE ES PARÁMETRO ENTRADA
 *  1 #DESC-P         (A30) /* ESTE ES PARÁMETRO SALIDA

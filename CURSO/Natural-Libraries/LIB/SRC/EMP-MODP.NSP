@@ -62,7 +62,7 @@ REPEAT
   INPUT 'INGRESE ID EMPLEADO A MODIFICAR: ' #ID-EMPLEADO
 *
   DECIDE ON FIRST VALUE OF *PF-KEY
-    VALUE 'ENTR'
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       IF #ID-EMPLEADO NE MASK(99999999)
         REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
       END-IF
@@ -70,13 +70,13 @@ REPEAT
       INPUT USING MAP 'EMP-MODM'
 *
       DECIDE ON FIRST VALUE OF *PF-KEY
-        VALUE 'PF3'
+        VALUE 'PF3'                /* PF3  = SALIR DEL PROGRAMA
           ESCAPE BOTTOM
         NONE VALUE
           IGNORE
       END-DECIDE
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -85,13 +85,14 @@ REPEAT
 *
 END-REPEAT
 *
-FETCH 'EMP-MENP'
+FETCH 'EMP-MENP'                    /* MENÚ EMPLEADOS
 *
 /*-------------------- SUBRUTINAS -----------------------------------*/
 *
 *********************************************
 * SUBRUTINA INGRESAR-ID-EMPLEADO
 *********************************************
+*
 DEFINE SUBROUTINE INGRESAR-ID-EMPLEADO           /* EX: VALIDAR
   INPUT 'INGRESE EMPLEADO: ' #ID-EMPLEADO
 *
@@ -103,6 +104,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA BUSCAR-EMPLEADO
 *********************************************
+*
 DEFINE SUBROUTINE BUSCAR-EMPLEADO                /* EX: PROCESO
 *
 F1. FIND VISTA-EMP WITH VISTA-EMP.ID-EMPLEADO = #ID-EMPLEADO
@@ -135,6 +137,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA BUSCAR-ULTIMO-INDICE-ARREGLO
 *********************************************
+*
 DEFINE SUBROUTINE BUSCAR-ULTIMO-INDICE-ARREGLO   /* EX: ARRAY
   FOR #I = 1 TO 20
     IF (VISTA-EMP.CODIGO-MONEDA(#I) EQ ' ' OR
@@ -149,6 +152,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA MOSTRAR-PANTALLA-EMPLEADO
 *********************************************
+*
 DEFINE SUBROUTINE MOSTRAR-PANTALLA-EMPLEADO
   INPUT
     'ID EMPLEADO...........:' #ID-EMPLEADO         (AD=O) /
@@ -173,6 +177,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA CONFIRMAR-ACT-EMPLEADO
 *********************************************
+*
 DEFINE SUBROUTINE CONFIRMAR-ACT-EMPLEADO         /* EX: CONFIRMAR
   SET WINDOW 'AVISO'
   INPUT
@@ -194,6 +199,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA SALIR-PROGRAMA
 *********************************************
+*
 DEFINE SUBROUTINE SALIR-PROGRAMA
   INPUT '¿DESEA FINALIZAR LA EJECUCIÓN DEL PROGRAMA? (S/N): ' #CONF
   IF #CONF = 'S' OR #CONF = 's'

@@ -40,7 +40,6 @@ INPUT          (     IP=OFF                                           /*
 /
 /
 /
-/
  003T 'ID-EMPLEADO..:'
  019T #ID-EMPLEADO-M /*.99U008 A008 .
       (AD=MDT )
@@ -109,6 +108,7 @@ INPUT          (     IP=OFF                                           /*
  003T 'VAL-ENTER'
  013T 'PF3-SALIR'
  023T 'PF10-ALTA'
+/
 * MAP2: VALIDATION *****************************************************
 * MAP2: END OF MAP *****************************************************
 END

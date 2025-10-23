@@ -15,9 +15,9 @@ LOCAL
   1 #DESC-M (A030/00001:00005)
   1 #SEL-M (A001/00001:00005)
 
-  1 #COD-DEP-V (A006/00001:00050)
-  1 #DESC-V (A030/00001:000050)
-  1 #SEL-V (A001/00001:000050)
+  1 #COD-DEP-V (A006/00001:00300)
+  1 #DESC-V (A030/00001:000300)
+  1 #SEL-V (A001/00001:000300)
   
   1 #I (N03)
   1 #J (N03)
@@ -32,16 +32,15 @@ LOCAL
     
 END-DEFINE
 *
-************************************************************************
-/* CUERPO PRINCIPAL DEL SUBPROGRAMA
-************************************************************************
+/*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 *  
 PERFORM CARGAR-VECTORES-TABLA
 PERFORM CARGAR-MAPA
 *    
 REPEAT
-
+*
   INPUT USING MAP 'DEP-ALTM'
   DECIDE ON FIRST VALUE OF *PF-KEY
 *
@@ -50,59 +49,46 @@ REPEAT
       IF #COD-RETORNO-P EQ 1
         ESCAPE ROUTINE
       END-IF
+*
     VALUE 'PF3'
       ESCAPE ROUTINE
 *        
     VALUE 'PF7'
-          IF #DESDE EQ 1
-            REINPUT 'PRIMER PANTALLA'
-          ELSE
-            #DESDE := #DESDE - 5
-            #HASTA := #HASTA - 5
-*            WRITE '=' #DESDE /
-*                  '=' #HASTA
-                  
-            PERFORM CARGAR-MAPA
-          END-IF
-          
-        VALUE 'PF8'
-
-          IF #HASTA >= #HASTA-MAX
-            REINPUT 'ULTIMA PANTALLA'
-          ELSE
-            #DESDE := #DESDE + 5
-            #HASTA := #HASTA + 5
-*            WRITE '=' #DESDE /
-*                  '=' #HASTA
-                  
-            PERFORM CARGAR-MAPA
-          END-IF
+      IF #DESDE EQ 1
+        REINPUT 'PRIMER PANTALLA'
+      ELSE
+        #DESDE := #DESDE - 5
+        #HASTA := #HASTA - 5
+*       WRITE '=' #DESDE /
+*             '=' #HASTA  
+        PERFORM CARGAR-MAPA
+        RESET #SEL-M(*)
+      END-IF
+*          
+    VALUE 'PF8'
+      IF #HASTA >= #HASTA-MAX
+        REINPUT 'ULTIMA PANTALLA'
+      ELSE
+        #DESDE := #DESDE + 5
+        #HASTA := #HASTA + 5
+*       WRITE '=' #DESDE /
+*             '=' #HASTA  
+        PERFORM CARGAR-MAPA
+        RESET #SEL-M(*)
+*
+      END-IF
     NONE VALUE
+      RESET #SEL-M(*)
       REINPUT 'OPCIÓN INCORRECTA'
   END-DECIDE         
 END-REPEAT
 *    
-
 /*-------------------- SUBRUTINAS -----------------------------------*/
 *
-DEFINE SUBROUTINE VALIDAR-SELECCION
-  IF SELECTION NOT UNIQUE #SEL-M(*)                   
-     REINPUT 'SELECCIONE UNA SOLO CODIGO' MARK *#SEL-M(1)
-  END-IF
-*
-  FOR #I = 1 TO 5
-    IF #SEL-M(#I) EQ 'X'
-      MOVE #COD-DEP-M(#I) TO #COD-DEPT-P
-      MOVE #DESC-M(#I)    TO #DESC-P
-      MOVE 1              TO #COD-RETORNO-P
-      ESCAPE ROUTINE
-    END-IF
-  END-FOR
-END-SUBROUTINE
-
 *********************************************
 * SUBRUTINA CARGAR-VECTORES-TABLA
-********************************************
+*********************************************
+*
 DEFINE SUBROUTINE CARGAR-VECTORES-TABLA                
 *
   READ VISTA-DEPT BY VISTA-DEPT.COD-DEPT = #COD-DEPT  
@@ -110,14 +96,18 @@ DEFINE SUBROUTINE CARGAR-VECTORES-TABLA
     MOVE VISTA-DEPT.COD-DEPT           TO #COD-DEP-V(#I)
     MOVE VISTA-DEPT.DESC               TO #DESC-V(#I)
 *
-    IF #I EQ 50
+    IF #I EQ 300
       ESCAPE BOTTOM
     END-IF
 *
   END-READ
   MOVE #I                              TO #HASTA-MAX
 END-SUBROUTINE
-
+*
+*********************************************
+* SUBRUTINA CARGAR-MAPA
+*********************************************
+*
 DEFINE SUBROUTINE CARGAR-MAPA
   RESET #J
   FOR #I = #DESDE TO #HASTA
@@ -127,5 +117,30 @@ DEFINE SUBROUTINE CARGAR-MAPA
   END-FOR
 END-SUBROUTINE
 *
+*********************************************
+* SUBRUTINA VALIDAR-SELECCION
+*********************************************
+*
+DEFINE SUBROUTINE VALIDAR-SELECCION
+/* SI SE SELECCIONA MÁS DE UNA OPCIÓN, GENERA UN ERROR LÓGICO
+  IF SELECTION NOT UNIQUE #SEL-M(*)                   
+     REINPUT 'SELECCIONE UN SOLO CÓDIGO' MARK *#SEL-M(1)
+  END-IF
+*
+  FOR #I = 1 TO 5
+    IF #SEL-M(#I) EQ 'X'
+      /* SI SELECCIONO X, PERO HAY VALORES EN BLANCO ENTONCES
+      /* ENTONCES NO SE CARGAN LOS VALORES
+      IF #COD-DEP-M(#I) NE ' '
+        MOVE #COD-DEP-M(#I) TO #COD-DEPT-P
+        MOVE #DESC-M(#I)    TO #DESC-P
+        MOVE 1              TO #COD-RETORNO-P
+        ESCAPE ROUTINE
+      ELSE
+        RESET #SEL-M(#I) /* SE RESETEA EL VALOR DE 'X'
+      END-IF
+    END-IF
+  END-FOR
+END-SUBROUTINE
 
 END

@@ -8,7 +8,7 @@ DEFINE DATA LOCAL
     2 COD-DEPT
     2 DESC
 *
-  1 #COD-DEPT   (A03)
+  1 #COD-DEPT   (A06)
   1 #ISN        (P10)
   1 #CONF       (A01)
 END-DEFINE
@@ -19,29 +19,32 @@ DEFINE WINDOW AVISO
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 REPEAT
   INPUT USING MAP 'DEP-BAJM'
   DECIDE ON FIRST VALUE *PF-KEY
-    VALUE 'ENTR'
+*
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO           
       PERFORM INGRESAR-CODIGO-DEPARTAMENTO
       PERFORM BUSCAR-DEPARTAMENTO
 *
       DECIDE ON FIRST VALUE #CONF
-         VALUE 'S'
-           GE. GET VISTA-DEPT #ISN
-           DELETE (GE.)
-           END TRANSACTION
-           RESET   #COD-DEPT #CONF
+        VALUE 'S'                  /* S    = CONFIRMAR LA BAJA DEL DEPT
+          GE. GET VISTA-DEPT #ISN
+          DELETE (GE.)
+          END TRANSACTION
+          RESET   #COD-DEPT #CONF
 *
-         VALUE 'N'
+        VALUE 'N'                  /* N    = CANCELAR LA BAJA DEL DEPT
           INPUT 'SE CANCELÓ LA ELIMINACIÓN DEL REGISTRO'
           RESET #COD-DEPT #CONF
 *
-         NONE VALUE
+        NONE VALUE
           REINPUT 'INGRESE UNA OPCIÓN VÁLIDA'
       END-DECIDE
-    VALUE 'PF3'
+*
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -50,18 +53,23 @@ REPEAT
 END-REPEAT
 *
 FETCH 'DEP-MENP'
+*
 /*-------------------- SUBRUTINAS -----------------------------------*/
+*
 *********************************************
 * SUBRUTINA INGRESAR-CODIGO-DEPARTAMENTO
 *********************************************
+*
 DEFINE SUBROUTINE INGRESAR-CODIGO-DEPARTAMENTO
   IF #COD-DEPT EQ ' '
     REINPUT 'DEBE INGRESAR UN CODIGO DE MONEDA'
   END-IF
 END-SUBROUTINE
+*
 *********************************************
 * SUBRUTINA BUSCAR-DEPARTAMENTO
 *********************************************
+*
 DEFINE SUBROUTINE BUSCAR-DEPARTAMENTO
 *
 F1. FIND VISTA-DEPT WITH VISTA-DEPT.COD-DEPT = #COD-DEPT

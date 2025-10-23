@@ -43,7 +43,7 @@ REPEAT
   INPUT 'INGRESE ID EMPLEADO A CONSULTAR: ' #ID-EMPLEADO
 *
   DECIDE ON FIRST VALUE OF *PF-KEY
-    VALUE 'ENTR'
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       IF #ID-EMPLEADO NE MASK(99999999)
         REINPUT 'INGRESE UN ID DE EMPLEADO VÁLIDO'
       END-IF
@@ -51,13 +51,13 @@ REPEAT
       INPUT USING MAP 'EMP-CONM'
 *
       DECIDE ON FIRST VALUE OF *PF-KEY
-        VALUE 'PF3'
+        VALUE 'PF3'                /* PF3  = SALIR DEL PROGRAMA
           ESCAPE BOTTOM
         NONE VALUE
           IGNORE
       END-DECIDE
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -66,7 +66,7 @@ REPEAT
 *
 END-REPEAT
 *
-FETCH 'EMP-MENP'
+FETCH 'EMP-MENP'                    /* MENÚ EMPLEADOS
 *
 /*-------------------- SUBRUTINAS -----------------------------------*/
 *

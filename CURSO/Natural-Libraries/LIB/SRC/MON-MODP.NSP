@@ -20,12 +20,13 @@ DEFINE WINDOW AVISO
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 REPEAT
   INPUT 'INGRESE CÓDIGO DE MONEDA A MODIFICAR: ' #COD-MONEDA
 
   DECIDE ON FIRST VALUE *PF-KEY
-    VALUE 'ENTR'
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       IF #COD-MONEDA EQ ' '
         REINPUT 'DEBE INGRESAR UN CÓDIGO DE MONEDA'
       END-IF
@@ -35,7 +36,7 @@ REPEAT
       RESET #COD-MONEDA #DESC
       ESCAPE BOTTOM   
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -45,9 +46,11 @@ END-REPEAT
 *
 FETCH 'MON-MENP'
 /*-------------------- SUBRUTINAS -----------------------------------*/
+*
 *********************************************
 * SUBRUTINA MODIFICACION-MONEDA
-********************************************
+*********************************************
+*
 DEFINE SUBROUTINE MODIFICACION-MONEDA
 *
 F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
@@ -76,9 +79,11 @@ F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
 *
   END-FIND
 END-SUBROUTINE
+*
 *********************************************
 * SUBRUTINA MOSTRAR-PANTALLA-MONEDA
 *********************************************
+*
 DEFINE SUBROUTINE MOSTRAR-PANTALLA-MONEDA
   INPUT
     'CÓDIGO DE MONEDA:' #COD-MONEDA (AD=O) /
@@ -88,6 +93,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA CONFIRMAR-ACT-MONEDA
 *********************************************
+*
 DEFINE SUBROUTINE CONFIRMAR-ACT-MONEDA         /* EX: CONFIRMAR
   SET WINDOW 'AVISO'
   INPUT

@@ -20,12 +20,13 @@ DEFINE WINDOW AVISO
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 REPEAT
   INPUT 'INGRESE CÓDIGO DE DEPARTAMENTO A MODIFICAR: ' #COD-DEPT
 
   DECIDE ON FIRST VALUE *PF-KEY
-    VALUE 'ENTR'
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       IF #COD-DEPT EQ ' '
         REINPUT 'DEBE INGRESAR UN CÓDIGO DE MONEDA'
       END-IF
@@ -34,7 +35,7 @@ REPEAT
       RESET #COD-DEPT
 *      INPUT USING MAP 'DEP-MODM'    
 *
-    VALUE 'PF3'
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -42,11 +43,14 @@ REPEAT
   END-DECIDE
 END-REPEAT
 *
-FETCH 'DEP-MENP'
+FETCH 'DEP-MENP'                   /* MENÚ DEPARTAMENTOS
+*
 /*-------------------- SUBRUTINAS -----------------------------------*/
+*
 *********************************************
 * SUBRUTINA MODIFICACION-DEPARTAMENTO
-********************************************
+*********************************************
+*
 DEFINE SUBROUTINE MODIFICACION-DEPARTAMENTO
 *
 F1. FIND VISTA-DEPT WITH VISTA-DEPT.COD-DEPT = #COD-DEPT
@@ -75,9 +79,11 @@ F1. FIND VISTA-DEPT WITH VISTA-DEPT.COD-DEPT = #COD-DEPT
 *
   END-FIND
 END-SUBROUTINE
+*
 *********************************************
 * SUBRUTINA MOSTRAR-PANTALLA-DEPARTAMENTO
 *********************************************
+*
 DEFINE SUBROUTINE MOSTRAR-PANTALLA-DEPARTAMENTO
   INPUT
     'CÓDIGO DE MONEDA:' #COD-DEPT (AD=O) /
@@ -87,6 +93,7 @@ END-SUBROUTINE
 *********************************************
 * SUBRUTINA CONFIRMAR-ACT-DEPARTAMENTO
 *********************************************
+*
 DEFINE SUBROUTINE CONFIRMAR-ACT-DEPARTAMENTO         /* EX: CONFIRMAR
   SET WINDOW 'AVISO'
   INPUT

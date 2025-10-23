@@ -2,7 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
-/** Consulta de <b>Empleados</b>.
+/** Consulta múltiple de <b>Empleados</b>.
 DEFINE DATA LOCAL
   1 VISTA-EMP VIEW OF EMPLEADOS
     2 ID-EMPLEADO                 (A08)          /* DESCRIPTOR

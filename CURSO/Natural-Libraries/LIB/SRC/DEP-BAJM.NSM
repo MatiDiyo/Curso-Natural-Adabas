@@ -6,7 +6,7 @@
 * INPUT USING MAP 'XXXXXXXX'
 *     #COD-DEPT
 DEFINE DATA PARAMETER
-1 #COD-DEPT (A003)
+1 #COD-DEPT (A006)
 END-DEFINE
 FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
 * MAP2: MAP PROFILES *****************************        200***********
@@ -25,7 +25,7 @@ INPUT          (     IP=OFF                                           /*
 /
 /
  017T 'CÓDIGO DEPARTAMENTO:'
- 038T #COD-DEPT /*.99U003 A003 .
+ 038T #COD-DEPT /*.99U006 A006 .
       (AD=MDT )
 /
 /

@@ -19,29 +19,32 @@ DEFINE WINDOW AVISO
   FRAMED
 *
 /*-------------------- MAIN -----------------------------------------*/
+*
 SET KEY ALL
 REPEAT
   INPUT USING MAP 'MON-BAJM'
   DECIDE ON FIRST VALUE *PF-KEY
-    VALUE 'ENTR'
+*
+    VALUE 'ENTR'                   /* ENTR = CONFIRMAR INGRESO DE DATO
       PERFORM INGRESAR-CODIGO-MONEDA
       PERFORM BUSCAR-MONEDA
 *
       DECIDE ON FIRST VALUE #CONF
-         VALUE 'S'
+         VALUE 'S'                 /* S    = CONFIRMAR LA BAJA DEL DEPT
            GE. GET VISTA-MONEDA #ISN
            DELETE (GE.)
            END TRANSACTION
            RESET   #COD-MONEDA #CONF
 *
-         VALUE 'N'
+         VALUE 'N'                 /* N    = CANCELAR LA BAJA DEL DEPT
           INPUT 'SE CANCELÓ LA ELIMINACIÓN DEL REGISTRO'
           RESET #COD-MONEDA #CONF
 *
          NONE VALUE
           REINPUT 'INGRESE UNA OPCIÓN VÁLIDA'
       END-DECIDE
-    VALUE 'PF3'
+*
+    VALUE 'PF3'                    /* PF3  = SALIR DEL PROGRAMA
       ESCAPE BOTTOM
 *
     NONE VALUE
@@ -50,35 +53,40 @@ REPEAT
 END-REPEAT
 *
 FETCH 'MON-MENP'
+*
 /*-------------------- SUBRUTINAS -----------------------------------*/
+*
 *********************************************
 * SUBRUTINA INGRESAR-CODIGO-MONEDA
 *********************************************
+*
 DEFINE SUBROUTINE INGRESAR-CODIGO-MONEDA
   IF #COD-MONEDA EQ ' '
     REINPUT 'DEBE INGRESAR UN CODIGO DE MONEDA'
   END-IF
 END-SUBROUTINE
+*
 *********************************************
 * SUBRUTINA BUSCAR-MONEDA
 *********************************************
+*
 DEFINE SUBROUTINE BUSCAR-MONEDA
 *
-F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
+  F1. FIND VISTA-MONEDA WITH VISTA-MONEDA.COD-MONEDA = #COD-MONEDA
 *
-  IF NO RECORD FOUND
-    REINPUT 'EL REGISTRO NO EXISTE - INGRESE CODIGO DE MONEDA'
-  END-NOREC
+    IF NO RECORD FOUND
+      REINPUT 'EL REGISTRO NO EXISTE - INGRESE CODIGO DE MONEDA'
+    END-NOREC
 *
-  #ISN := *ISN(F1.)
+    #ISN := *ISN(F1.)
 *
-  SET WINDOW 'AVISO'
-  INPUT 'CÓDIGO DE MONEDA: ' VISTA-MONEDA.COD-MONEDA (AD=O) /
-        'DESCRIPCIÓN.....: ' VISTA-MONEDA.DESC       (AD=O) /
-        '¿DESEA ELIMINAR ESTE REGISTRO? (S/N): ' #CONF
-  SET WINDOW OFF
+    SET WINDOW 'AVISO'
+    INPUT 'CÓDIGO DE MONEDA: ' VISTA-MONEDA.COD-MONEDA (AD=O) /
+          'DESCRIPCIÓN.....: ' VISTA-MONEDA.DESC       (AD=O) /
+          '¿DESEA ELIMINAR ESTE REGISTRO? (S/N): ' #CONF
+    SET WINDOW OFF
 *
-END-FIND
+  END-FIND
 *
 END-SUBROUTINE
 *
