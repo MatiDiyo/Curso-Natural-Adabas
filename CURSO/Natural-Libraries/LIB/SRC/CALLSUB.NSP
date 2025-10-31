@@ -2,7 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
-/* ESTE ES UN PROGRAMA LLAMADOR AL SUBPROGRAMA 'DEP-CONN'
+/* Este es un programa llamador al subprograma <b>DEP-CONN<b>
 DEFINE DATA LOCAL 
   USING EMP-ALTA
 END-DEFINE

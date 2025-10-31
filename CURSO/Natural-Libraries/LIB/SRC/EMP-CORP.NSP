@@ -1,0 +1,65 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+/** Corte de controlde <b>Empleados</b>.
+DEFINE DATA LOCAL
+  1 EMPL-VISTA VIEW OF EMPLEADOS
+    2 ID-EMPLEADO              (A08) /* DESCRIPTOR
+    2 DEPARTAMENTO             (A06) /* DESCRIPTOR
+    2 APELLIDO                 (A20) /* DESCRIPTOR      
+*                  
+    2 SP-DEPT-EMPL             (A26) /* SÚPER DESCRIPTOR
+   /* DEPARTAMENTO             (A06)
+   /* APELLIDO                 (A20)
+*   
+  1 #SP-DEPT-EMPL              (A26)
+  1 REDEFINE #SP-DEPT-EMPL
+    2 #DEPT-S                  (A06) /* DEPARTAMENTO
+    2 #APE-S                   (A20) /* APELLIDO
+*
+* CONTADORES TOTALES
+  1 #TOT-DEPT                  (N05)
+  1 #TOT-GENERAL               (N05)
+  1 #LEIDOS                    (N05)          
+  
+  1 #DEPT-ANT                  (A06) /* DEPARTAMENTO ANTERIOR                             
+END-DEFINE
+*
+RESET #SP-DEPT-EMPL
+INPUT 'INGRESE EL DEPT DEL EMPLEADO....: ' #DEPT-S /
+*      'INGRESE EL APELLIDO DEL EMPLEADO: ' #SP-DEPT-EMPL.#APE-S    
+*
+READ EMPL-VISTA BY SP-DEPT-EMPL STARTING FROM #SP-DEPT-EMPL
+*
+  ADD 1 TO #LEIDOS
+  IF #LEIDOS EQ 1
+    #DEPT-ANT := EMPL-VISTA.DEPARTAMENTO
+  END-IF
+*
+  IF EMPL-VISTA.DEPARTAMENTO NE #DEPT-ANT
+*
+    PERFORM MOSTRAR-TOTALES
+*
+    NEWPAGE
+    #DEPT-ANT := EMPL-VISTA.DEPARTAMENTO
+    RESET #TOT-DEPT 
+  END-IF
+*
+  ADD 1 TO #TOT-GENERAL
+  ADD 1 TO #TOT-DEPT
+  DISPLAY 'DEPT' EMPL-VISTA.DEPARTAMENTO
+          'APE'  EMPL-VISTA.APELLIDO
+          'ID'   EMPL-VISTA.ID-EMPLEADO
+END-READ
+*
+PERFORM MOSTRAR-TOTALES
+*
+DEFINE SUBROUTINE MOSTRAR-TOTALES
+  WRITE 'DEPT...........: '       #DEPT-ANT /
+        'TOTAL POR DEPT.: '       #TOT-DEPT /
+        'TOTALES PARCIAL: '       #TOT-GENERAL
+END-SUBROUTINE
+*
+END
+

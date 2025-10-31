@@ -10,73 +10,62 @@ DEFINE DATA PARAMETER
 1 #DESC-M (A030/00001:00005)
 1 #SEL-M (A001/00001:00005)
 END-DEFINE
-FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+FORMAT PS=012 LS=049 ZP=OFF SG=OFF KD=OFF IP=OFF
 * MAP2: MAP PROFILES *****************************        200***********
 * .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
-* 024079        N0NNUCN             X ^      01 SYSPROF NR             *
+* 012048        N0NNUCN             X ^      01 SYSPROF NR             *
 ************************************************************************
 INPUT          (     IP=OFF                                           /*
                                                                        )
 /
- 070T *PROGRAM /*.01S009 A008 .
-      (AD=ODT )
+ 002T 'SEL'
+ 009T 'COD'
+ 026T 'DESC'
 /
 /
- 030T 'ALTA DEPARTAMENTO'
-/
-/
-/
-/
- 012T 'SEL'
- 029T 'COD'
- 055T 'DESC'
-/
-/
- 013T #SEL-M (1) /*.99U001 A001 .
+ 003T #SEL-M (1) /*.99U001 A001 .
       (AD=MDT )
    /**A1000050000100001000010000100001100005001001000001000HV
- 028T #COD-DEP-M (1) /*.01U006 A006 .
+ 008T #COD-DEP-M (1) /*.01U006 A006 .
       (AD=ODT )
    /**A1000050000100001000010000100001100005001001000001000HV
- 043T #DESC-M (1) /*.01U030 A030 .
+ 017T #DESC-M (1) /*.01U030 A030 .
       (AD=ODT )
    /**A1000050000100001000010000100001100005001001000001000HV
 /
- 013T #SEL-M (2) /*.99U001 A001 .
+ 003T #SEL-M (2) /*.99U001 A001 .
       (AD=MDT )
- 028T #COD-DEP-M (2) /*.01U006 A006 .
+ 008T #COD-DEP-M (2) /*.01U006 A006 .
       (AD=ODT )
- 043T #DESC-M (2) /*.01U030 A030 .
+ 017T #DESC-M (2) /*.01U030 A030 .
       (AD=ODT )
 /
- 013T #SEL-M (3) /*.99U001 A001 .
+ 003T #SEL-M (3) /*.99U001 A001 .
       (AD=MDT )
- 028T #COD-DEP-M (3) /*.01U006 A006 .
+ 008T #COD-DEP-M (3) /*.01U006 A006 .
       (AD=ODT )
- 043T #DESC-M (3) /*.01U030 A030 .
+ 017T #DESC-M (3) /*.01U030 A030 .
       (AD=ODT )
 /
- 013T #SEL-M (4) /*.99U001 A001 .
+ 003T #SEL-M (4) /*.99U001 A001 .
       (AD=MDT )
- 028T #COD-DEP-M (4) /*.01U006 A006 .
+ 008T #COD-DEP-M (4) /*.01U006 A006 .
       (AD=ODT )
- 043T #DESC-M (4) /*.01U030 A030 .
+ 017T #DESC-M (4) /*.01U030 A030 .
       (AD=ODT )
 /
- 013T #SEL-M (5) /*.99U001 A001 .
+ 003T #SEL-M (5) /*.99U001 A001 .
       (AD=MDT )
- 028T #COD-DEP-M (5) /*.01U006 A006 .
+ 008T #COD-DEP-M (5) /*.01U006 A006 .
       (AD=ODT )
- 043T #DESC-M (5) /*.01U030 A030 .
+ 017T #DESC-M (5) /*.01U030 A030 .
       (AD=ODT )
 /
 /
-/
-/
-/
-/
-/
-/
+ 001T 'ENTER-VAL'
+ 011T 'PF3-SALIR'
+ 021T 'PF7-ANTERIOR'
+ 034T 'PF8-SIGUIENTE'
 /
 /
 * MAP2: VALIDATION *****************************************************

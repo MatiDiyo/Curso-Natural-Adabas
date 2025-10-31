@@ -2,7 +2,7 @@
 * :Mode S
 * :CP
 * <Natural Source Header
-/* ESTE ES UN PROGRAMA LLAMADOR AL SUBPROGRAMA 'DEP-VALN'
+/* Este es un programa llamador al subprograma <b>DEP-VALN<b>
 DEFINE DATA LOCAL 
   1 #COD-DEPT-P     (A06) /* ESTE ES PARÁMETRO ENTRADA
   1 #DESC-P         (A30) /* ESTE ES PARÁMETRO SALIDA
