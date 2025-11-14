@@ -1,0 +1,77 @@
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+* >Natural Source Header 000000
+* :Mode S
+* :CP
+* <Natural Source Header
+DEFINE DATA LOCAL
+* CAMPOS DE VISTA
+  1 VEHIC-VISTA VIEW OF VEHICULOS
+    2 PATENTE                 (A15)
+    2 NUMERO-CHASIS           (B04)
+    2 ID-EMPLEADO             (A08)
+    2 VEHICULO
+      3 MARCA                 (A20)
+      3 MODELO                (A20)
+      3 COLOR                 (A10)
+    2 ANIO                    (N04)
+    2 CLASE                   (A01)
+    2 ARRENDAMIENTO-COMPRA    (A01)
+    2 FECHA-ALTA-VEHICULO     (N08)
+    2 COSTO
+      3 CODIGO-MONEDA         (A03)
+      3 COSTO-MANTENIMIENTO   (1:3)    
+    2 SP-VEHICULO             (A24)
+*
+* CAMPOS DE WORKFILE DE VEHICULOS
+  1 #REG-VEH
+    2 #ID-EMPLEADO            (A08)
+    2 #PATENTE                (A06)
+    2 #MARCA                  (A06)
+    2 #MODELO                 (A15)
+    2 #COLOR                  (A08)
+    2 #ANIO                   (N04)
+    2 #FECHA-ALTA             (N08)  /* (FORMATO YYYYMMDD)
+*
+  1 #LEIDOS                   (N02)
+  1 #ACTUALIZADOS             (N02)
+  1 #ALTAS                    (N02)  
+END-DEFINE
+*
+DEFINE WORK FILE 1 '/home/WF/WFVE2.csv' TYPE 'CSV'
+*
+READ WORK FILE 1 #REG-VEH
+*
+  ADD 1 TO #LEIDOS
+  FIND VEHIC-VISTA WITH VEHIC-VISTA.ID-EMPLEADO = #ID-EMPLEADO
+*
+    IF NO RECORDS FOUND
+      IF #REG-VEH.#MARCA EQ 'TOYOTA'
+        WRITE 'MARCA: TOYOTA - DAR DE ALTA - ID EMPLEADO: ' #ID-EMPLEADO
+        ADD 1 TO #ALTAS
+      END-IF
+      ESCAPE BOTTOM
+    END-NOREC
+*
+  IF #REG-VEH.#MARCA EQ 'VW'
+    WRITE 'MARCA: VW     - ACTUALIZAR  - ID EMPLEADO: ' #ID-EMPLEADO
+    ADD 1 TO #ACTUALIZADOS
+  END-IF
+  END-FIND
+*
+END-WORK
+*
+WRITE / 'REGISTROS TOTALES......: ' #LEIDOS /
+        'REGISTROS DADOS DE ALTA: ' #ALTAS /
+        'REGISTROS ACTUALIZADOS.: ' #ACTUALIZADOS
+*
+CLOSE WORK FILE 1
+*
+END
+
